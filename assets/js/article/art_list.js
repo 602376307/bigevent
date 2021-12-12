@@ -92,6 +92,8 @@ $(function () {
     }
     // 删除功能
     $('tbody').on('click', '.btn-delete', function () {
+        // 获取删除按钮个数
+        var len = $('.btn-delete').length
         var id = $(this).attr('data-id')
         layer.confirm('确认删除吗?', {
             icon: 3,
@@ -104,6 +106,10 @@ $(function () {
                 success: function (res) {
                     if (res.status != 0) {
                         return layer.msg('删除文章失败')
+                    }
+                    // 判断删除按钮个数
+                    if (len == 1) {
+                        q.pagenum = q.pagenum === 1 ? 1 : q.pagenum - 1
                     }
                     layer.msg('删除文章成功')
                     // 重新渲染一下
